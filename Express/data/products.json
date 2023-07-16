@@ -1,0 +1,13 @@
+[
+  { "id": 1, "name": "Redmi Note 10", "price": 10000, "category": "Mobile" },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy M31",
+    "price": 15000,
+    "category": "Mobile"
+  },
+  { "id": 3, "name": "OnePlus 9 Pro", "price": 60000, "category": "Mobile" },
+  { "id": 4, "name": "Test", "price": 120200, "category": "Smart Phones" },
+  { "id": 5, "name": "Test123", "price": 120200, "category": "Smart hellow" },
+  { "id": 6, "name": "Test123", "price": 111111, "category": " hellow" }
+]
