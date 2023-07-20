@@ -20,6 +20,3 @@ To run a Next.js project, follow these steps:
   7.Node.js.
   
 
-NOTE:
-The api used to get the data is of free tier provided by rapid api. So, it is possible that the app may work properly when the api block the access.
-Kindly contact me if you occur such problems or decide by looking at the sorce code. I will be happy to assit you and refactor the app with some new api.
