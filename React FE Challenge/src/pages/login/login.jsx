@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLoginAuthMutation } from "../../features/api/authApi";
-import { useDispatch, useSelector } from "react-redux";
-import { appSelector, login } from "../../features/slice/appSlice";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/slice/appSlice";
 import Cookies from "js-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { token } = useSelector(appSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginAuth, { isLoading, isSuccess, isError, error, data }] =

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import svgAsset from "../assets/images/11.svg";
 import ServicesCard from "../components/cards/ServicesCard";
 import card1 from "../assets/images/national.png";
@@ -13,8 +13,10 @@ import { useSelector } from "react-redux";
 import { appSelector } from "../features/slice/appSlice";
 import { useNavigate } from "react-router-dom";
 import Footer from "../layout/footer/footer";
+import { useGetProductsQuery } from "../features/api/productApi";
 const Home = () => {
   const { token } = useSelector(appSelector);
+  const { data, isLoading, isSuccess } = useGetProductsQuery();
   const navigate = useNavigate();
   const cardData = [
     {
@@ -63,6 +65,15 @@ const Home = () => {
       navigate("/dashboard");
     }
   }, []);
+  if (isLoading || !isSuccess) {
+    return (
+      <div className="loadingSpinner h-screen w-screen">
+        <span class="loader"></span>
+      </div>
+    );
+  }
+  const { products } = data?.data;
+
   return (
     <>
       {/* // Hero section for home page */}
@@ -124,6 +135,38 @@ const Home = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="aboutUs py-8 my-4">
+        <div className="container  m-auto ">
+          <h1 className="text-neutral_text text-[38px] text-center py-8 font-[600]">
+            Products :
+          </h1>
+          <div className="productContainer flex justify-between items-start flex-wrap gap-5">
+            {products?.map((elem, i) => (
+              <Fragment key={i}>
+                <div className="card w-96 h-96 bg-base-100 shadow-xl image-full">
+                  <figure>
+                    <img
+                      src={`${import.meta.env.VITE_BASE_URL}/files/${
+                        elem.imageLink
+                      }`}
+                      className="object-cover h-full w-full"
+                      alt="Shoes"
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{elem.category}</h2>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Nobis reiciendis vel, vitae blanditiis laboriosam a minus
+                      doloremque.
+                    </p>
+                  </div>
+                </div>
+              </Fragment>
+            ))}
           </div>
         </div>
       </section>

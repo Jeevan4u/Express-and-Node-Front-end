@@ -2,11 +2,14 @@ import React from "react";
 import shoes from "../../assets/images/shoe.jpg";
 
 const ProductCard = ({ product }) => {
-  console.log(product);
   return (
     <div className="card w-96 bg-base-100 shadow-xl p-4">
       <figure className="px-10 pt-10">
-        <img src={shoes} alt="Shoes" className="rounded-xl" />
+        <img
+          src={`${import.meta.env.VITE_BASE_URL}/files/${product.imageLink}`}
+          alt="Shoes"
+          className="rounded-xl"
+        />
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{product.name}</h2>

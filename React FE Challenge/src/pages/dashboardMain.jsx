@@ -7,7 +7,7 @@ const DashboardMain = () => {
   const { data, isLoading, isError, isSuccess } = useGetProductsQuery();
   if (isLoading || !isSuccess) {
     return (
-      <div className="loadingSpinner h-screen w-screen bg-neutral_background">
+      <div className="loadingSpinner h-screen w-screen">
         <span class="loader"></span>
       </div>
     );

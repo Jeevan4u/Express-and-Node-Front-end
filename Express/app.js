@@ -1,15 +1,28 @@
 const { json } = require("body-parser");
 const dotenv = require("dotenv").config();
 const express = require("express");
+const multer = require("multer");
 const fs = require("fs");
 let app = express();
 let jtw = require("jsonwebtoken"); //jwt
 let products = JSON.parse(fs.readFileSync("./data/products.json"));
 let users = JSON.parse(fs.readFileSync("./data/userData.json"));
 let cors = require("cors");
+const path = require("path");
+const exp = require("constants");
 
 app.use(cors());
 app.use(express.json());
+app.use("/files", express.static("files"));
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, __dirname + "/files");
+  },
+  filename: (req, file, cb) => {
+    const filename = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, filename);
+  },
+});
 
 app.post("/api/login", async (req, res) => {
   let { email, password } = req.body;
@@ -35,7 +48,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 //GET - api/products
-app.get("/api/products", authenticateToken, (req, res) => {
+app.get("/api/products", (req, res) => {
   res.status(200).json({
     status: "success",
     data: {
@@ -44,20 +57,40 @@ app.get("/api/products", authenticateToken, (req, res) => {
   });
 });
 
-//POST - api/products
-app.post("/api/products", authenticateToken, (req, res) => {
-  let newID = products[products.length - 1].id + 1;
-  let newProduct = Object.assign({ id: newID }, req.body);
-  products.push(newProduct);
-  fs.writeFile("./data/products.json", JSON.stringify(products), (err) => {
-    res.status(201).json({
-      status: "success",
-      data: {
-        product: newProduct,
-      },
-    });
-  });
+const uploads = multer({
+  storage: storage,
+  // limits: {
+  //   fileSize: 1048576, //1MB
+  // },
 });
+//POST - api/products
+app.post(
+  "/api/products",
+  uploads.any(),
+  authenticateToken,
+  async (req, res) => {
+    try {
+      let imageLink = req.files[0].originalname;
+      let newID = products[products.length - 1].id + 1;
+
+      let newProduct = Object.assign(
+        { id: newID, imageLink: imageLink },
+        req.body
+      );
+      products.push(newProduct);
+      fs.writeFile("./data/products.json", JSON.stringify(products), (err) => {
+        res.status(201).json({
+          status: "success",
+          data: {
+            product: newProduct,
+          },
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 //POST -api/products/:id
 app.get("/api/products/:id", authenticateToken, (req, res) => {
@@ -76,6 +109,33 @@ app.get("/api/products/:id", authenticateToken, (req, res) => {
     },
   });
 });
+
+//PUT - api/products/:id
+
+app.patch(
+  "/api/products/:id",
+
+  authenticateToken,
+  async (req, res) => {
+    try {
+      const id = req.params.id * 1;
+      let updateToProduct = products.find((el) => el.id === id);
+      let indexofUpdateProduct = products.indexOf(updateToProduct);
+      let updatedProduct = Object.assign(updateToProduct, req.body);
+      products[indexofUpdateProduct] = updatedProduct;
+      fs.writeFile("./data/products.json", JSON.stringify(products), (err) => {
+        res.status(200).json({
+          status: "success",
+          data: {
+            product: updatedProduct,
+          },
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 //AUTHENTICATION
 function authenticateToken(req, res, next) {

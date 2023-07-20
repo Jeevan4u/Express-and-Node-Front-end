@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboard";
 import DashboardMain from "./pages/dashboardMain";
 import Product from "./pages/createProudct/product";
 import ViewProducts from "./pages/createProudct/viewProduct";
+import EditProduct from "./pages/createProudct/editProduct";
 
 function App() {
   const { token } = useSelector(appSelector);
@@ -26,6 +27,7 @@ function App() {
             <Route index element={<DashboardMain />} />
             <Route path="create-product" element={<Product />} />
             <Route path="products/:id" element={<ViewProducts />} />
+            <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
         </Route>
       </Routes>

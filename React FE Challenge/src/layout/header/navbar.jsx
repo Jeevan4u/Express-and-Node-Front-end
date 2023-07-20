@@ -17,14 +17,17 @@ const Navbar = () => {
 
         <ul className="navLists">
           <Link to={`${path === "/login" ? "/" : "/login"}`}>
-            <button className="btn  bg-brand_primary_fade navItems px-10 hover:bg-brand_primary hover:text-white transition-colors duration-150 ease-in-out">
-              {path === "/login"
-                ? "Go Back"
-                : path === "/dashboard"
-                ? "Logout"
-                : "Login"}
-              <SignInIcon />
-            </button>
+            {path === "/login" ? (
+              <button className="btn  bg-brand_primary_fade navItems px-10 hover:bg-brand_primary hover:text-white transition-colors duration-150 ease-in-out">
+                Back
+                <SignInIcon />
+              </button>
+            ) : path === "/" ? (
+              <button className="btn  bg-brand_primary_fade navItems px-10 hover:bg-brand_primary hover:text-white transition-colors duration-150 ease-in-out">
+                Login
+                <SignInIcon />
+              </button>
+            ) : null}
           </Link>
         </ul>
       </nav>
