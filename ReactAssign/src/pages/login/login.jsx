@@ -33,7 +33,7 @@ const Login = () => {
   }, [isSuccess, isError]);
   return (
     <div className="RegisterContainer ">
-      <div className="grid xl:h-screen xl:w-screen md:grid-cols-2 sm:grid-cols-1">
+      <div className="grid xl:h-screen xl:w-screen md:grid-cols-2 sm:grid-cols-1 p-4">
         <div className="left bg-Stroke bg-no-repeat bg-right-bottom bg-cover my-5 py-[170px]">
           <div className="formWrapper max-w-[400px] mx-auto">
             <div className="GetStartedSection mb-[20px]">
@@ -124,7 +124,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="Right bg-gradient-to-b from-[#517879] to-[#1E3E57] grid place-content-center py-10">
+        <div className="Right bg-gradient-to-b from-[#517879] to-[#1E3E57]  place-content-center py-10 hidden md:grid">
           <div className="rightContent ">
             <h1 className="max-w-[431px] mx-auto font-[700] text-[64px] leading-[96px] text-white">
               “Creativity is intelligence having fun”

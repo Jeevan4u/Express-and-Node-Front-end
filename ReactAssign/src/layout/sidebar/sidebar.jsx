@@ -22,7 +22,7 @@ const Sidebar = () => {
                     tabIndex={0}
                     className="btn btn-ghost btn-circle avatar mt-[9px]"
                   >
-                    <div className="w-10 rounded-full">
+                    <div className="w-10 rounded-full border-4">
                       <img
                         src={`${
                           import.meta.env.VITE_BASE_URL
@@ -60,9 +60,9 @@ const Sidebar = () => {
         <Outlet />
         <label
           htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
+          className="btn btn-accent drawer-button lg:hidden btn-md absolute top-[-50px] right-0"
         >
-          Open
+          Menu
         </label>
       </div>
       <div className="drawer-side">

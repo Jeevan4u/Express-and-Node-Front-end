@@ -115,7 +115,7 @@ const Home = () => {
         </div>
       </section>
       {/* // About us section for home page // */}
-      <section className="aboutUs bg-neutral_background py-8 my-4">
+      <section className="aboutUs bg-neutral_background py-8 px-4 my-4">
         <div className="container  m-auto ">
           <h1 className="text-neutral_text text-[38px] text-center py-8 font-[600]">
             About Us
@@ -138,12 +138,12 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="aboutUs py-8 my-4">
+      <section className="Product py-8 my-4  px-4">
         <div className="container  m-auto ">
           <h1 className="text-neutral_text text-[38px] text-center py-8 font-[600]">
             Products :
           </h1>
-          <div className="productContainer flex justify-between items-start flex-wrap gap-5">
+          <div className="productContainer flex justify-between items-start flex-wrap gap-5 md:gap-1 md:justify-center">
             {products?.map((elem, i) => (
               <Fragment key={i}>
                 <div className="card w-96 h-96 bg-base-100 shadow-xl image-full">
